@@ -114,7 +114,6 @@ nav.addEventListener('mouseout', handlerHover.bind(1));
 // Stick navigation: Intersection Observer API
 const header = document.querySelector('.header');
 const navHeight = nav.getBoundingClientRect().height;
-console.log(navHeight);
 
 const stickyNav = function (entries) {
   const [entry] = entries;
