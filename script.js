@@ -7,8 +7,11 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
-const openModal = function () {
+const openModal = function (e) {
+  e.preventDefault();
   modal.classList.remove('hidden');
   overlay.classList.remove('hidden');
 };
@@ -18,8 +21,7 @@ const closeModal = function () {
   overlay.classList.add('hidden');
 };
 
-for (let i = 0; i < btnsOpenModal.length; i++)
-  btnsOpenModal[i].addEventListener('click', openModal);
+btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
 
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
@@ -29,3 +31,217 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+// Smooth scroll
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords);
+
+  console.log(e.target.getBoundingClientRect());
+
+  // modern scroll
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+// Page navigation
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+
+//     // Smooth Scrolling
+//     const id = this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+// 1. Add event Listener to common parent element
+// 2. Determine what element originated the event
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  // Matching strategy
+  if (e.target.classList.contains('nav__link')) {
+    console.log(e.target);
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+//=================SELEC, CREATE & DEL ELEMENT========================
+// // Selecting Elements
+// console.log(document.documentElement);
+// console.log(document.head);
+// console.log(document.body);
+
+// const header = document.querySelector('.header');
+// const allSections = document.querySelectorAll('.section');
+// console.log(allSections);
+
+// document.getElementById('section--1');
+
+// // return HTMLCollection / live collection / Update outomatically
+// const allButtons = document.getElementsByTagName('button');
+// console.log(allButtons);
+
+// console.log(document.getElementsByClassName('btn'));
+
+// // Creating and inserting elements
+// // .insertAdjacentHTML
+
+// const message = document.createElement('div');
+// message.classList.add('cookie-message');
+// message.textContent = 'We use cookied for improved functionality and analytics';
+// message.innerHTML =
+//   'We use cookied for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
+
+// // add as a firstchild
+// header.prepend(message);
+// // add as a lastchild
+// header.append(message);
+// // header.append(message.cloneNode(true));
+
+// // add as a sibling
+// // header.after(message);
+// // header.before(message);
+
+// // Delete elements
+// document
+//   .querySelector('.btn--close-cookie')
+//   .addEventListener('click', function () {
+//     message.remove();
+
+//     // message.parentElement.removeChild(message)
+//   });
+
+// //===============Styles, Attributes & Classes====================
+// message.style.backgroundColor = '#37383d';
+// message.style.width = '120%';
+
+// console.log(message.style.height);
+// console.log(message.style.backgroundColor);
+
+// console.log(getComputedStyle(message).color);
+// // get the default height of the element
+// console.log(getComputedStyle(message).height);
+
+// message.style.height =
+//   Number.parseFloat(getComputedStyle(message).height) + 30 + 'px';
+
+// // document.documentElement.style.setProperty('--color-primary', 'orangered');
+
+// // Attributes
+// const logo = document.querySelector('.nav__logo');
+// console.log(logo.alt);
+// console.log(logo.src);
+// console.log(logo.className);
+
+// // logo.alt = 'Beautiful minimalist logo';
+
+// // Non-standard
+// console.log(logo.desinger);
+// console.log(logo.getAttribute('designer'));
+// logo.setAttribute('company', 'bankist');
+
+// // getting the absulote value and relative
+// console.log(`absulote ${logo.getAttribute('src')}`);
+// console.log(`relative ${logo.src}`);
+
+// const link = document.querySelector('.nav__link--btn');
+// console.log(link.href);
+// console.log(link.getAttribute('href'));
+
+// // Data attributes
+// console.log(logo.dataset.versionNumber);
+
+// // Classes
+// logo.classList.add('c', 'j');
+// logo.classList.remove('c', 'j');
+// logo.classList.toggle('c');
+// logo.classList.contains('c'); //not includes
+
+// // Don't use
+// logo.className = 'jonas';
+
+//====================SMOOTH SCROLLING=======================
+// const btnScrollTo = document.querySelector('.btn--scroll-to');
+// const section1 = document.querySelector('#section--1');
+
+// btnScrollTo.addEventListener('click', function (e) {
+//   const s1coords = section1.getBoundingClientRect();
+//   console.log(s1coords);
+
+//   console.log(e.target.getBoundingClientRect());
+
+//   // console.log('Current scroll (X/Y)', scrollX, scrollY);
+
+//   // console.log(
+//   //   'height/width viewport',
+//   //   document.documentElement.clientHeight,
+//   //   document.documentElement.clientWidth
+//   // );
+
+//   // Scrolling
+//   // window.scrollTo(s1coords.left + scrollX, s1coords.top + scrollY);
+
+//   // window.scrollTo({
+//   //   left: s1coords.left + scrollX,
+//   //   top: s1coords.top + scrollY,
+//   //   behavior: 'smooth',
+//   // });
+
+//   // modern scroll
+//   section1.scrollIntoView({ behavior: 'smooth' });
+// });
+
+//===================EVENT HANDLERS===========================
+// const h1 = document.querySelector('h1');
+
+// // event Once
+// const alertH1 = function (e) {
+//   alert('addEventLister: Great! you are mongloalya');
+
+//   // h1.removeEventListener('mouseenter', alertH1);
+// };
+// h1.addEventListener('mouseenter', alertH1);
+// setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+
+// h1.addEventListener('mouseenter', function (e) {
+//   alert('addEventLister: Great! you are gwapo');
+// });
+
+// // old events call
+// h1.onmouseenter = function (e) {
+//   alert('addEventLister: Great! you are gwapo');
+// };
+
+//====================Event Propagation======================
+// // rgb(255, 255, 255)
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min + 1) + min);
+// const randomColor = () =>
+//   `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
+// console.log(randomColor(0, 255));
+
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('LINK', e.target, e.currentTarget);
+//   console.log(e.currentTarget === this);
+
+//   // Stop propagation
+//   // e.stopPropagation();
+// });
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('CONTAINER', e.target, e.currentTarget);
+//   console.log(e.currentTarget === this);
+// });
+// document.querySelector('.nav').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('NAV', e.target, e.currentTarget);
+//   console.log(e.currentTarget === this);
+// });
+
+//====================EVENT DELEGATION======================
