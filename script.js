@@ -677,3 +677,20 @@ slider();
 
 // btnRight.addEventListener('click', nextSlide);
 // btnLeft.addEventListener('click', prevSlide);
+
+// ==================LIFECYCLE DOM EVENTS=========================
+// document.addEventListener('DOMContentLoaded', function (e) {
+//   console.log('HTML parsed and DOM tree built!', e);
+// });
+
+// window.addEventListener('load', function (e) {
+//   console.log('Page fully loaded', e);
+// });
+
+// // fires when the user about to leave the page
+// // window.addEventListener('beforeunload', function (e) {
+// //   e.preventDefault();
+// //   console.log(e);
+// // });
+
+// =========EFFICIENT SCRIPT LOADING: DEFER & ASYNC===============
